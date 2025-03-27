@@ -9,8 +9,10 @@
   "dependencies": {
     "@formatjs/intl-numberformat": "^8.15.3",
     "@heroicons/react": "^1.0.6",
-    "@reduxjs/toolkit": "^1.5.0",
+    "@reduxjs/toolkit": "^2.6.1",
+    "@stripe/stripe-js": "^6.1.0",
     "@tailwindcss/line-clamp": "^0.2.0",
+    "axios": "^1.8.4",
     "firebase": "^8.10.1",
     "firebase-admin": "^9.8.0",
     "next": "^15.2.2",
@@ -18,7 +20,8 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-redux": "^9.2.0",
-    "react-responsive-carousel": "^3.2.23"
+    "react-responsive-carousel": "^3.2.23",
+    "stripe": "^17.7.0"
   },
   "license": "MIT",
   "devDependencies": {

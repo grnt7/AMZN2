@@ -3,7 +3,7 @@ import Image from "next/image"
 //import primeLogo from "../../public/Prime_logo.png"; // Import the Prime logo
 import { formatGBP } from "../utils/Currency"; // Adjust the path as needed
 //import Currency1 from "../utils/Currency1"; // Assuming you have a Currency component
-import Currency from "../utils/Currency1";
+//import Currency from "../utils/Currency1";
 import { useDispatch } from "react-redux";
 import { addToBasket, removeFromBasket } from '../slices/basketSlice';
 
@@ -20,6 +20,17 @@ function CheckoutProduct({
     quantity,
 }) {
     console.log("CheckoutProduct - Price:", price, "Quantity:", quantity);
+
+      // Type Checking (Place it here, at the beginning of the component logic):
+  if (typeof price !== "number") {
+    console.error("Error: price is not a number", price);
+    return null; // Or handle the error appropriately
+  }
+
+  if (typeof quantity !== "number") {
+    console.error("Error: quantity is not a number", quantity);
+    return null; // Or handle the error appropriately
+  }
 
     const dispatch = useDispatch();
   
@@ -42,9 +53,9 @@ function CheckoutProduct({
       //remove item from redux
       dispatch(removeFromBasket({ id }));
     }
-    ///const totalPrice = price * quantity; // Calculate total price
-    ///const formattedPrice =formatGBP(totalPrice); // Format the total price
-    const formattedPrice = formatGBP(price);
+    const totalPrice = price * quantity; // Calculate total price
+    const formattedPrice =formatGBP(totalPrice); // Format the total price
+    //const formattedPrice = formatGBP(price);
 
    
   return (

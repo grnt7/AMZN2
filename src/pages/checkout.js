@@ -5,12 +5,36 @@ import { selectItems, selectTotal } from '../slices/basketSlice';
 import CheckoutProduct from '../components/CheckoutProduct';
 import { formatGBP } from '../utils/Currency'; // Import the function
 import { useSession } from "next-auth/react";
+import { loadStripe } from '@stripe/stripe-js';
+import axios from 'axios';
+const stripePromise = loadStripe(process.env.stripe_public_key); // Replace with your actual Stripe publishable key
 
 
 function checkout() {
   const items = useSelector(selectItems); // Get the items from the Redux store
   const total = useSelector(selectTotal)
   const {data: session, status} = useSession(); // Get session data
+  
+  const createCheckoutSession = async () => {
+      const stripe = await stripePromise; // Get stripe
+
+      // call the backend API to create a checkout session...
+      const checkoutSession = await axios.post('/api/create-checkout-session',  
+        {
+        
+        items: items,
+        email: session.user.email
+      });
+      // Redirect to the stripe Checkout page with the session ID
+      const result = await stripe.redirectToCheckout({
+        sessionId: checkoutSession.data.id
+      })
+      if (result.error) {alert(result.error.message);
+
+      };
+        
+      
+  };
 
  
     // Calculate the total price
@@ -57,7 +81,7 @@ function checkout() {
                 key={i}
                 id={item.id}
                 title={item.title}
-                price={item.price}
+                price={items.price}
                 description={item.description}
                 category={item.category}
                 image={item.image}
@@ -85,6 +109,8 @@ function checkout() {
               </span>
               </h2>
               <button
+                        role="link" //seo best pratice
+                        onClick={createCheckoutSession}
                         disabled={status !== "authenticated"} // Check status
                         className={`button mt-2 ${status !== "authenticated" &&
                             "from-gray-300 to-gray-500 border-gray-200 text-gray-300 cursor-not-allowed"
