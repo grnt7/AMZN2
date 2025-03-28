@@ -171,8 +171,9 @@ function Header() {
               <p className="font-extrabold  md:text-sm ">Account & Lists</p>
             </div> 
             
-            <div className=" link">
-               <p>Returns</p>
+            <div onClick={() => session && router.push("./orders")} 
+            className="cursor-pointer link">
+               <p>Returns</p> 
               <p className="font-extrabold  md:text-sm" >& Orders</p>
             </div>
             <div onClick={()=>router.push('/checkout')} className=" relative link flex items-center cursor-pointer">

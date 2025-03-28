@@ -17,7 +17,7 @@ export default async (req, res) => {
         product_data: {
           name: item.title,
           images: [item.image], // Image URLs
-          description: item.description, // Correct placement of description
+          description: item.description, // Correct placement of description inside product data
         },
       },
     }));
