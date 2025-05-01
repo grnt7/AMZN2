@@ -1,26 +1,28 @@
-import { initializeApp, getApps } from "firebase/app";
-import firebase from 'firebase';
-import { getFirestore } from "firebase/firestore";
+import { initializeApp, getApps } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBnjoG5-MvBdFoYF1fd-qXPguSH2VUTMmw",
-  authDomain: "amzn2-f8e83.firebaseapp.com",
-  projectId: "amzn2-f8e83",
-  storageBucket: "amzn2-f8e83.firebasestorage.app",
-  messagingSenderId: "774461316507",
-  appId: "1:774461316507:web:6d9bc91fc4dc47932dd53e"
-};
+ 
+    apiKey: "AIzaSyBnjoG5-MvBdFoYF1fd-qXPguSH2VUTMmw",
+    authDomain: "amzn2-f8e83.firebaseapp.com",
+    projectId: "amzn2-f8e83",
+    storageBucket: "amzn2-f8e83.firebasestorage.app",
+    messagingSenderId: "774461316507",
+    appId: "1:774461316507:web:6d9bc91fc4dc47932dd53e"
+  };
 
 // Initialize Firebase
-const app = !firebase.apps.length? firebase.initializeApp(firebaseConfig) : firebase.app();
+let app;
+if (!getApps().length) {
+  app = initializeApp(firebaseConfig);
+} else {
+  app = getApps()[0]; // Use existing app if already initialized
+}
 
-
-// Initialize Cloud Firestore and get a reference to the service
-
-const db = app.firestore();
+// Initialize Firestore
+const db = getFirestore(app);
 
 export { db };
-
 
 
 
@@ -49,12 +51,12 @@ import { initializeApp, getApps } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBnjoG5-MvBdFoYF1fd-qXPguSH2VUTMmw",
-  authDomain: "amzn2-f8e83.firebaseapp.com",
-  projectId: "amzn2-f8e83",
-  storageBucket: "amzn2-f8e83.firebasestorage.app",
-  messagingSenderId: "774461316507",
-  appId: "1:774461316507:web:6d9bc91fc4dc47932dd53e"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
