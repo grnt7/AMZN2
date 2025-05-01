@@ -110,7 +110,7 @@ function checkout() {
               </span>
               </h2>
               <button
-                        role="link" //seo best pratice
+                        role="link" //seo best practice
                         onClick={createCheckoutSession}
                         disabled={status !== "authenticated"} // Check status
                         className={`button mt-2 ${status !== "authenticated" &&
