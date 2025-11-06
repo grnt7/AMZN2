@@ -20,7 +20,9 @@ Run commands
 
 2) ```yarn install```
 
-3) ```yarn run dev```
+3) Disclaimer:** Built purely for demonstration of React/ Stripe API Payment skills; zero affiliation with the original brand."
+
+4) ```yarn run dev```
 
 
 ### If you see the window below then you are set to build AMAZON 2.0!
