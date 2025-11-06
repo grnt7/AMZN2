@@ -20,7 +20,7 @@ Run commands
 
 2) ```yarn install```
 
-3) Disclaimer:** Built purely for demonstration of React/ Stripe API Payment skills; zero affiliation with the original brand."
+3) Disclaimer:** Built purely for demonstration of React/TailwindCSS/Redux/NextAuth/Stripe API Payment skills; zero affiliation with the original brand."
 
 4) ```yarn run dev```
 
