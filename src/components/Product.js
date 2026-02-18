@@ -1,22 +1,32 @@
 import Image from "next/image";
-import { useState } from "react";
+// import { useState } from "react";
 import { StarIcon } from "@heroicons/react/solid";
 import { formatGBP } from '../utils/Currency'; // Import the function
 import primeLogo from "../../public/Prime_logo.png"; // Import the Prime logo
 import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
 import { addToBasket } from '../slices/basketSlice';
 
+// Assuming you have these constants or props
 const MAX_RATING = 5;
 const MIN_RATING = 1;
 
 function Product({ id, title, price, description, category, image }) {
     const dispatch = useDispatch();
-    const [rating] = useState(
-        Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1)) + MIN_RATING
-    );
-
+    // 1. Add a mounting state
+    const [hasMounted, setHasMounted] = useState(false);
+    const [rating] = useState(Math.floor(Math.random() * 5) + 1);
+    Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1)) + MIN_RATING
+    
     const [hasPrime] = useState(Math.random() < 0.5);
 
+    // 3. Trigger mounting state after the first render
+    useEffect(() => {
+        setHasMounted(true);
+    }, []);
+
+    // 4. Return a "placeholder" or null until mounted to avoid the mismatch
+    if (!hasMounted) return null;
     // Format the price here:
     const formattedPrice = formatGBP(price);
 
@@ -43,12 +53,15 @@ function Product({ id, title, price, description, category, image }) {
             <Image src={image} height={200} width={200} objectFit="contain" alt="product image" />
             <h4>{title}</h4>
             <div className="flex">
-                {Array(rating)
-                    .fill()
-                    .map((_, i) => (
-                        <StarIcon className="h-5 text-yellow-500" key={i} />
-                    ))}
-            </div>
+               {/* Only render stars if the component has mounted on the client */}
+        {hasMounted && 
+          Array(rating)
+            .fill()
+            .map((_, i) => (
+              <StarIcon key={i} className="h-5 text-yellow-500" />
+            ))
+        }
+      </div>
             <p className="text-xs mt-2 my-2 line-clamp-2">{description}</p>
             <div className="mb-5">
                 <p>{formattedPrice}</p> {/* Render the result */}
