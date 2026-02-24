@@ -25,21 +25,23 @@ export default function Home({products}) {
 }
 
 export async function getServerSideProps(context) {
- const res = await fetch("https://fakestoreapi.com/products");
-  
-  // 2. Added a check to ensure we actually got JSON back
-  if (!res.ok) {
-    console.error("Failed to fetch products", res.status);
-    return { props: { products: [] } }; 
+try {
+    const res = await fetch("https://fakestoreapi.com/products");
+    
+    if (!res.ok) {
+      // This will show up in your Vercel "Function Logs"
+      console.error(`API Fetch Error: Status ${res.status}`);
+      return { props: { products: [] } };
+    }
+
+    const products = await res.json();
+    return { props: { products } };
+
+  } catch (error) {
+    // This catches network timeouts or DNS issues
+    console.error("Fetch failed entirely:", error);
+    return { props: { products: [] } };
   }
-
-  const products = await res.json();
-
-  return {
-    props: {
-      products,
-    },
-  };
 }
 
  
